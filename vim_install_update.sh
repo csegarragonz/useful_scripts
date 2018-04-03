@@ -47,7 +47,7 @@ get_repo "vim-latex" "vim-latex"
 cd $DOTVIM/autoload
 echo "Fetching latest pathogen.vim"
 rm pathogen.vim
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+curl https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim -o ~/.vim/autoload/pathogen.vim
 
 echo "Downloading vimrc file in a config file folder. If a directory named config_files exists, it will be stored there."
 if [ ! -d $HOME/config_files/ ]
