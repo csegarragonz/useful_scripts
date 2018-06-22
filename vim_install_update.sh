@@ -43,6 +43,10 @@ get_repo "vim-airline" "vim-airline"
 get_repo "vim-airline" "vim-airline-themes"
 get_repo "altercation" "vim-colors-solarized"
 get_repo "vim-latex" "vim-latex"
+# This package requires quite a lot of work
+#get_repo "Valoric" "YouCompleteMe"
+#cd $DOTVIM/autoload/bundle/YouCompleteMe
+#git submodule update --init --recursive
 
 cd $DOTVIM/autoload
 echo "Fetching latest pathogen.vim"
