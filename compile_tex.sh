@@ -1,12 +1,16 @@
 #!/bin/bash
 
 # First look for the main tex file if there are various tex files
+echo "hola"
+echo $1
 filename="${1%%.*}"
+echo $filename
 shopt -s nullglob
 for i in *.latexmain; do
     filename="${i%%.*}"
 done
 filetexname="$filename.tex"
+echo $filetexname
 
 # Compile it with references if a .bib document exists in the current directory
 pdflatex $filetexname
