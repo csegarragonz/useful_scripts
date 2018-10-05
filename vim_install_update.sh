@@ -1,6 +1,7 @@
 #!/bin/bash
 # This script sets all my vim plugins and set up. It installs pathogen vim, a plugin manager,
-# and copies my vimrc to a config_files folder and softlinks it to root.
+# and copies my vimrc to a config_files folder and softlinks it to root. It does the
+# same thing with the .bashrc.
 # Props to https://gist.github.com/gmhawash/5095015 who I took inspiration from
 # Works well on Linux Mint
 
@@ -53,22 +54,29 @@ echo "Fetching latest pathogen.vim"
 rm pathogen.vim
 curl https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim -o ~/.vim/autoload/pathogen.vim
 
-echo "Downloading vimrc file in a config file folder. If a directory named config_files exists, it will be stored there."
-if [ ! -d $HOME/config_files/ ]
-then
-  mkdir $HOME/config_files/
-fi
-cd $HOME/config_files/
-curl -O https://raw.githubusercontent.com/csegarragonz/config_files/master/.vimrc
+echo "Cloning to the config-files folder. Cloning is done over SSH so remember to add your PKeys to Github."
+cd $HOME
+git clone git@github.com:csegarragonz/config_files.git
 
+cd $HOME/config_files
+echo "We create softlinks for the .bashrc and .vimrc files"
 if [ ! -f .vimrc ]
 then
   echo "No .vimrc file found, something went wrong! Exitting..."
   exit 0
-else 
-  echo "Creating a softlink to home..."
+else
   if [ ! -f $HOME/.vimrc ]
   then
     ln -s $HOME/config_files/.vimrc $HOME/.vimrc
+  fi
+fi
+if [ ! -f .bashrc ]
+then
+  echo "No .bashrc file found, something went wrong! Exitting..."
+  exit 0
+else
+  if [ ! -f $HOME/.bashrc ]
+  then
+    ln -s $HOME/config_files/.bashrc $HOME/.bashrc
   fi
 fi
