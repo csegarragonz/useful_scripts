@@ -1,10 +1,7 @@
 #!/bin/bash
 
 # First look for the main tex file if there are various tex files
-echo "hola"
-echo $1
 filename="${1%%.*}"
-echo $filename
 shopt -s nullglob
 for i in *.latexmain; do
     filename="${i%%.*}"

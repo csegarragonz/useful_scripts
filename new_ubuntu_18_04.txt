@@ -1,0 +1,74 @@
+This is a guide to installing a fresh new Ubuntu 18.04 (minimal) @ CSEM. I assume that you have a USB that has been burned with an image of the LTS, and that you have already contacted UDITIS to have a new Linux PC name.
+
+1. Insert USB and restart the PC. While restart alternatively press F8 and F12 on a Lenovo machine. Hopefully you will enter the special boot mode.
+
+2. If so, press enter where you see the bootable USB (you can navigate between diferent options using arrow keys).
+
+3. Once booted, choose install Ubuntu.
+
+4. It is important that in the Computer's Name field you put the one given by UDITIS. Username and password do not really matter.
+
+5. Install the minimal option allowing all the third-party drivers.
+
+6. Complete all the other fields at will. No Wi-Fi connection for the moment.
+
+7. At this point I assume that you have finished installing Ubuntu, rebooted, removed the USB and are succesfully logged in to your brand new Ubuntu account. You are one step closer to dumping Windows.
+
+8. First thing you have to do is set up the Wi-Fi connection:
+    - Settings (top right corner)
+    - Wi-Fi
+    - CSEM-WLAN -> Click
+        Security: WPA2 Enterprise
+        Authentication: PEAP
+        Anonymous identity: (none)
+        CA certificate: (none)
+        Inner authentication: MSCHAPv2
+        Username: <CSEM identifier>
+        Password: <CSEM's pass>
+
+9. Now install a couple of things
+sudo apt update
+sudo apt upgrade
+sudo apt install gnome-tweaks git curl cifs-utils vim-gnome pass openjdk-8-jdk scala blueman network-manager-openconnect-gnome
+snap install spotify
+snap install --clasic slack
+snap install telegram-desktop
+
+10. Now set up the VPN connection
+    - Settings
+    - Network
+    - VPN (Add)
+        - Name: CSEM
+        - VPN Protocol: Cisco AnyConnect
+        - Gateway: vpn.csem.ch
+
+11. Now you should change a line in a random file
+    - sudo vim /etc/nsswitch.conf
+    - In line 12, dns should be the second element. This is, after files and before mdns4_minimal
+
+12. Configure a fast way home
+ssh-keygen -t rsa
+ssh-copy-id carlos@carlossegarra.com
+scp carlos@carlossegarra.com:csg_bup_files/config ~/.ssh/
+
+13. To set up your password store
+ssh carlos
+gpg --export-secret-keys carlos@carlossegarra.com > pkey.asc
+exit
+cd ~
+mkdir .password_store
+scp carlos:pkey.asc .
+gpg --import pkey.asc
+rm pkey.asc
+git init
+git remote add origin carlos:git/keys/
+git pull origin master
+// Should be working now
+
+14. Now you should be able to log in to Github and then 
+
+11. Now you should obtain (from somewhere) the certificate to access to CSEM's privat github. Once you have the file:
+    - Open Firefox
+    - Preferences
+    - Privacy & Security
+    - Certificates > View Certificates > Import > Select the file
