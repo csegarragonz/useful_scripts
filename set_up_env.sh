@@ -1,3 +1,16 @@
+# Check if full installation
+if [[ $* == *--full* ]]; then
+    sudo apt update
+    sudo apt install \
+        chromium \
+        ssh \
+        sudo
+    sudo snap install \
+        spotify \
+        telegram-desktop
+
+## Neovim configuration
+
 # Install Neovim
 sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:neovim-ppa/stable
@@ -19,8 +32,5 @@ git clone https://github.com/csegarragonz/config_files
 
 mkdir -p .config/nvim/
 ln -s ~/config_files/init.vim ~/.config/nvim/init.vim
-
-rm .bashrc
-ln -s ~/config_files/.bashrc ~/.bashrc
-source .bashrc
-
+nvim +PlugInstall +qa
+nvim +PlugUpdate +qa
