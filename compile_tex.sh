@@ -9,7 +9,11 @@ else
     # We then look for the main tex file if there are various tex files
     filename="${1%%.*}"
     shopt -s nullglob
-    for i in *.latexmain; do
+    #for i in $(find "../" -maxdepth 2 -name "*.latexmain");
+    for i in *.latexmain;
+    do
+        #cd $(dirname $i)
+        #filename="$(basename $i)"
         filename="${i%%.*}"
     done
     filetexname="$filename.tex"
