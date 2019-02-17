@@ -45,7 +45,7 @@ git clone https://github.com/csegarragonz/config_files
 # Setting up nvim
 mkdir -p .config/nvim/
 ln -s ~/config_files/init.vim ~/.config/nvim/init.vim
-cp -r ~/config_files/after ~/.config/nvim/
+ln -s ~/config_files/after ~/.config/nvim/
 nvim +PlugInstall +qa
 nvim +PlugUpdate +qa
 
