@@ -1,9 +1,13 @@
 ### CSG Environment Set Up Script
 # TODO:
-# Add keys to the full installation
-# Add other packages to the full installation
-# Order apt-installs
-# Include zsh configuration
+# 1. Add keys to the full installation
+# 2. Add other packages to the full installation
+# 3. Order apt-installs lexicographically
+# 4. Include zsh configuration
+# 5. Can I add my key remaps here?
+# - Next/before/play/pause/volume
+# - CAPS LOCK -> Ctrl
+# 6. Choose default terminal emulator
 
 # Check if full installation
 if [[ $* == *--full* ]]; then
