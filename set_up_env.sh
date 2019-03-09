@@ -8,18 +8,48 @@
 # - Next/before/play/pause/volume
 # - CAPS LOCK -> Ctrl
 # 6. Choose default terminal emulator
+# 7. If directory already exists, pull
 
 # Check if full installation
-if [[ $* == *--full* ]]; then
+if [[ $* == *--full* ]];
+then
     sudo apt update
     sudo apt install \
         chromium \
-        ssh \
-        sudo
+        xsel
     sudo snap install \
+        slack \
         spotify \
         telegram-desktop
+fi
 
+## If you want to update and do not have git installed you are dumb
+if [[ $* == *--update* ]];
+then
+    if [ -d "~/config_files" ];
+    then
+        cd "~/config_files"
+        git pull origin master
+        exit 0
+    else
+        echo "Update but no config_files dir!"
+        exit 1
+    fi
+fi
+
+## General package installation
+sudo apt-get update
+sudo apt-get install \
+    ctags \
+    curl \
+    git \
+    python-dev \
+    pyton-pip \
+    python3-dev \
+    pyton3-pip \
+    ssh \
+    sudo \
+    tmux
 
 ## Neovim configuration
 
@@ -27,10 +57,10 @@ if [[ $* == *--full* ]]; then
 sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:neovim-ppa/stable
 sudo apt-get update
-sudo apt-get install neovim python-dev python-pip python3-dev python3-pip curl git tmux
+sudo apt-get install neovim
 
 # Installl Neovim with python support
-sudo apt-get install python-pip python3-pip ctags
+sudo apt-get install
 pip2 install user neovim
 pip3 install user neovim
 
@@ -46,9 +76,12 @@ git clone https://github.com/csegarragonz/config_files
 mkdir -p .config/nvim/
 ln -s ~/config_files/init.vim ~/.config/nvim/init.vim
 ln -s ~/config_files/after ~/.config/nvim/
+ln -s ~/config_files/syntax ~/.config/nvim/
 nvim +PlugInstall +qa
 nvim +PlugUpdate +qa
 
+
+## Tmux configuration
 # Setting up tmux
 if [ -f '~/.tmux.conf'];
 then
@@ -56,4 +89,9 @@ then
     # TODO: ask Y/N
 else
     ln -s ~/config_files/.tmux.conf ~/.tmux.conf
+    ln -s ~/config_files/.tmux ~/.tmux
+    # Install TPM and the plugins contained in the conf file
+    git clone https://github.com/tmux-plugins/tpm ~/config_files/.tmux/plugins/tpm
+    tmux source ~/.tmux.conf
+    ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 fi
