@@ -21,7 +21,7 @@ else
     countbib=`ls -1 *.bib 2>/dev/null | wc -l`
     countglo=`ls -1 *.glo 2>/dev/null | wc -l`
     pdflatex $filetexname
-    if [ $count != 0 ];
+    if [ $countbib != 0 ];
     then
         bibtex $filename
     fi
