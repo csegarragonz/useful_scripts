@@ -18,11 +18,16 @@ else
     done
     filetexname="$filename.tex"
     # Compile it with references if a .bib document exists
-    count=`ls -1 *.bib 2>/dev/null | wc -l`
+    countbib=`ls -1 *.bib 2>/dev/null | wc -l`
+    countglo=`ls -1 *.glo 2>/dev/null | wc -l`
     pdflatex $filetexname
     if [ $count != 0 ];
     then
-    bibtex $filename
+        bibtex $filename
+    fi
+    if [ $countglo != 0];
+    then
+        makeglossaries $filename
     fi
     pdflatex $filetexname
     pdflatex $filetexname
