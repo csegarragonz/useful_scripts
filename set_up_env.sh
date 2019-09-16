@@ -50,7 +50,11 @@ sudo apt-get install \
     pyton3-pip \
     ssh \
     sudo \
-    tmux
+    tmux \
+    zsh
+
+## Update default shell
+chsh -s $(which zsh)
 
 ## Neovim configuration
 
