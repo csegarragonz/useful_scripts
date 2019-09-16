@@ -2,6 +2,8 @@
 
 # If there is a local compilation file that overrides ours we will use that.
 # Note that the list of names is completely arbitrary and might grow.
+# Will disable this for a bit since I would rather have a dynamic compilation
+# that looks for speciphic files.
 if [ -f make.sh ];
 then
     ./make.sh
