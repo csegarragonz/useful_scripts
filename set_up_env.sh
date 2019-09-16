@@ -9,6 +9,7 @@
 # - CAPS LOCK -> Ctrl
 # 6. Choose default terminal emulator
 # 7. If directory already exists, pull
+# 8. Add server mode
 
 # Check if full installation
 if [[ $* == *--full* ]];
